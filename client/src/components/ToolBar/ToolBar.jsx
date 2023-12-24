@@ -14,10 +14,6 @@ const ToolBar = () => {
     const canvas = useSelector(state => state.canvas.canvas);
     const [activated, setActivated] = useState(false);
 
-    const changeColor = e => {
-        dispatch(setFillColor(e.target.value));
-    }
-
     const setActive = (btn) => {
         if (!activated) {
             let button = document.getElementById(`btn-${btn}`);
@@ -39,7 +35,7 @@ const ToolBar = () => {
             <button id='btn-4' className="tool-bar-btn circle" onClick={() => { setActive(4); dispatch(setTool(new Circle(canvas))) }} />
             <button id='btn-5' className="tool-bar-btn line" onClick={() => { setActive(5); dispatch(setTool(new Line(canvas))) }} />
             <label style={{marginLeft: 10}} htmlFor="fill-color">Fill color</label>
-            <input id='fill-color' type="color" onChange={changeColor} onClick={changeColor} style={{marginLeft: 10}} />
+            <input id='fill-color' type="color" onChange={e => dispatch(setFillColor(e.target.value))} onClick={e => dispatch(setFillColor({ fillColor: e.target.value }))} style={{marginLeft: 10}} />
             <button className="tool-bar-btn undo" onClick={() => dispatch(undo())} />
             <button className="tool-bar-btn redo" onClick={() => dispatch(redo())} />
             <button className="tool-bar-btn save" />
